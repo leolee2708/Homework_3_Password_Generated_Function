@@ -31,12 +31,13 @@ function determineLength() {
 //Function used to determine whether the user wants to include uppercase characters in the password
 function determineUppercase() {
     uppercaseCheck = confirm("Do you want to include uppercase letters?");
-    if (uppercaseCheck) {
-        possibleOptions = possibleOptions.concat(onlyUpper, onlyLower);
+    if (uppercaseCheck === true) {
+        possibleOptions = possibleOptions.concat(onlyLower, onlyUpper);
         console.log(possibleOptions);
-    } else if (!uppercaseCheck) {
+    } else if (uppercaseCheck === false) {
         possibleOptions = possibleOptions.concat(onlyLower);
         console.log(possibleOptions);
+
     }
 }
 
@@ -63,30 +64,41 @@ function determineSpecial() {
         // }
     }
 }
-// Else if for 4 negative options
-//?
+
 //Function used to take all the input from the previous functions and generate a password using a random number generator and 
 //the charAt method 
 function generatePassword() {
+    console.log(possibleOptions);
+    possibleOptions = [];
     determineLength();
     console.log(passwordLength);
     determineUppercase();
     determineNumbers();
     determineSpecial();
-    // console.log(possibleOptions2);
-    console.log(possibleOptions);
-    // console.log(possibleOptions1);
-    // Add math random function
     var finalPassword = [];
-    for (let i = 0; i < passwordLength; ++i) {
+
+    // Conditional statementElse if for 4 negative options to return to determine the length
+    //  to check if user does not include any types of characters. 
+    if (!specialCheck || !uppercaseCheck || !numberCheck) {
+        alert("Must select at least one criteria");
+        return;
+    }
+    else for (let i = 0; i < passwordLength; ++i) {
         var randomPicker = Math.floor(Math.random() * Math.floor(possibleOptions.length));
         finalPassword.push(possibleOptions[randomPicker])
     }
     console.log(finalPassword);
+
     var superFinal = finalPassword.join('');
     console.log(superFinal);
     //document.getElementById("textarea").textContent = superFinal
     return superFinal;
+    // console.log(possibleOptions2);
+
+    // console.log(possibleOptions1);
+    // Add math random function
+
+
 }
 //
 // Write password to the #password input
