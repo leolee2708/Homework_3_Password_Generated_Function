@@ -23,7 +23,7 @@ function determineLength() {
         alert("Password length must be a number between 8-128 characters");
         determineLength();
     } else {
-        alert("The next three screens will ask you what types of characters you would like to be included in your password. Must choose at least one the of next 3 criterias");
+        alert("The next three screens will ask you what types of characters you would like to be included in your password. Must choose at least one the of next 4 criterias");
     }
     return passwordLength;
 }
@@ -32,12 +32,16 @@ function determineLength() {
 function determineUppercase() {
     uppercaseCheck = confirm("Do you want to include uppercase letters?");
     if (uppercaseCheck === true) {
-        possibleOptions = possibleOptions.concat(onlyLower, onlyUpper);
+        possibleOptions = possibleOptions.concat(onlyUpper);
         console.log(possibleOptions);
-    } else if (uppercaseCheck === false) {
-        possibleOptions = possibleOptions.concat(onlyLower);
-        console.log(possibleOptions);
+    } 
+}
 
+function determineLowercase() {
+    lowercaseCheck = confirm("Do you want to include lowecase letters?");
+    if (lowercaseCheck){
+        possibleOptions = possibleOptions.concat(onlyLower); 
+    console.log(possibleOptions);
     }
 }
 
@@ -75,11 +79,12 @@ function generatePassword() {
     determineUppercase();
     determineNumbers();
     determineSpecial();
+    determineLowercase();
     var finalPassword = [];
 
     // Conditional statementElse if for 4 negative options to return to determine the length
     //  to check if user does not include any types of characters. 
-    if (!specialCheck || !uppercaseCheck || !numberCheck) {
+    if (!specialCheck && !uppercaseCheck && !numberCheck & !lowercaseCheck) {
         alert("Must select at least one criteria");
         return;
     }
